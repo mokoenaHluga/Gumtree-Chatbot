@@ -24,7 +24,7 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public boolean startSession(RequestDto requestDto) {
+    public void startSession(RequestDto requestDto) {
         Optional<Agent> user = userRepository.findById(requestDto.getAgentId());
 
         if (user.isPresent()) {
@@ -35,8 +35,6 @@ public class ChatServiceImpl implements ChatService {
                     .build();
 
             this.userSessionRepository.save(session);
-            return true;
         }
-        return false;
     }
 }

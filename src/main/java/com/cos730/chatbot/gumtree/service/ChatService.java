@@ -5,5 +5,5 @@ import org.springframework.stereotype.Service;
 
 
 public interface ChatService {
-    boolean startSession(RequestDto requestDto);
+    void startSession(RequestDto requestDto);
 }
