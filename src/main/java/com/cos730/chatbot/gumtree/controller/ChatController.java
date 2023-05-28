@@ -46,8 +46,9 @@ public class ChatController {
     }
 
     @PostMapping("/start-session")
-    public boolean startChatSession(@RequestBody RequestDto requestDto) {
+    public void startChatSession(@RequestBody RequestDto requestDto) {
+        System.out.println("We are here");
         // start s chat session with agent
-        return chatService.startSession(requestDto);
+        chatService.startSession(requestDto);
     }
 }
