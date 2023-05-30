@@ -1,10 +1,12 @@
 package com.cos730.chatbot.gumtree.controller;
 
+import com.cos730.chatbot.gumtree.entity.Agent;
 import com.cos730.chatbot.gumtree.model.RequestDto;
 import com.cos730.chatbot.gumtree.service.ChatService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -46,9 +48,9 @@ public class ChatController {
     }
 
     @PostMapping("/start-session")
-    public void startChatSession(@RequestBody RequestDto requestDto) {
-        System.out.println("We are here");
+    public ResponseEntity<Agent> startChatSession(@RequestBody RequestDto requestDto) {
         // start s chat session with agent
-        chatService.startSession(requestDto);
+        Agent agent = chatService.startSession(requestDto);
+        return ResponseEntity.ok(agent);
     }
 }
