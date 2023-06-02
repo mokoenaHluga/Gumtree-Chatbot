@@ -4,6 +4,7 @@ import com.cos730.chatbot.gumtree.entity.Agent;
 import com.cos730.chatbot.gumtree.entity.UserSession;
 import com.cos730.chatbot.gumtree.entity.repository.AgentRepository;
 import com.cos730.chatbot.gumtree.entity.repository.UserSessionRepository;
+import com.cos730.chatbot.gumtree.exception.SessionException;
 import com.cos730.chatbot.gumtree.model.RequestDto;
 import com.cos730.chatbot.gumtree.service.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,18 +25,20 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public Agent startSession(RequestDto requestDto) {
+    public UserSession startSession(RequestDto requestDto) throws SessionException {
+        UserSession session;
         Optional<Agent> user = userRepository.findById(requestDto.getAgentId());
 
         if (user.isPresent()) {
-            UserSession session = UserSession.builder()
+            session = UserSession.builder()
                     .sessionId(requestDto.getSessionId())
                     .timeCreate(LocalDate.now().atStartOfDay())
                     .agent(user.get())
                     .build();
 
-            this.userSessionRepository.save(session);
+            return this.userSessionRepository.save(session);
+        } else {
+            throw new SessionException("Could not start a session");
         }
-        return user.get();
     }
 }
