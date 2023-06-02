@@ -1,10 +1,10 @@
 package com.cos730.chatbot.gumtree.service;
 
-import com.cos730.chatbot.gumtree.entity.Agent;
+import com.cos730.chatbot.gumtree.entity.UserSession;
+import com.cos730.chatbot.gumtree.exception.SessionException;
 import com.cos730.chatbot.gumtree.model.RequestDto;
-import org.springframework.stereotype.Service;
 
 
 public interface ChatService {
-    Agent startSession(RequestDto requestDto);
+    UserSession startSession(RequestDto requestDto) throws SessionException;
 }
